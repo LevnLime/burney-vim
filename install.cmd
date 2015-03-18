@@ -14,7 +14,7 @@ REM Determine Home directory
 REM Clone the Git repository
 @set APP_DIR=%HOME%\.burney-vim
 IF NOT EXIST "%APP_DIR%" (
-  REM call git clone --recursive -b 3.0 https://github.com/spf13/spf13-vim.git "%APP_DIR%"
+  REM call git clone https://github.com/LevnLime/burney-vim.git "%APP_DIR%"
 ) ELSE (
 	@set ORIGINAL_DIR=%CD%
     echo updating...
