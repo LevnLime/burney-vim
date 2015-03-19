@@ -22,6 +22,7 @@ set nocompatible			  " be iMproved, required
 	set mouse=a					" Automatically enable mouse usage
 	"set mousehide				 " Hide the mouse cursor while typing
 	scriptencoding utf-8
+	set encoding=utf-8
 
 	if has('clipboard')
 		if has('unnamedplus')  " When possible use + register for copy-paste
@@ -39,6 +40,8 @@ set nocompatible			  " be iMproved, required
 	"set iskeyword-=.					 " '.' is an end of word designator
 	"set iskeyword-=#					 " '#' is an end of word designator
 	"set iskeyword-=-					 " '-' is an end of word designator
+
+    set gdefault                        " applies substitutions globally on lines
 
 	" Restore cursor {
 	" http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
@@ -107,6 +110,7 @@ set nocompatible			  " be iMproved, required
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
     set number                      " Line numbers on
+    set relativenumber              " Line numbers are relative to cursor (:set nornu to disable)
     set showmatch                   " Show matching brackets/parenthesis
     set incsearch                   " Find as you type search
     set nohlsearch                  " Don't highlight search terms
@@ -121,6 +125,12 @@ set nocompatible			  " be iMproved, required
     set foldenable                  " Auto fold code
     set nolist						" set list displays problematic chars. Don't do this by default
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set hidden                      " Allows edited buffers to be hidden without saving first
+
+    if has('gui_running')
+        set guioptions-=T           " Remove the toolbar
+        set lines=40                " 40 lines of text instead of 24
+    endif
 " }
 
 " Formatting {
@@ -165,6 +175,67 @@ set nocompatible			  " be iMproved, required
 
 	" Toggle search highlighting with <leader>/
 	nmap <silent> <leader>/ :set invhlsearch<CR>
+
+    " Some helpers to edit mode
+    " http://vimcasts.org/e/14
+    cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+    map <leader>ew :e %%
+    map <leader>es :sp %%
+    map <leader>ev :vsp %%
+    map <leader>et :tabe %%
+
+    " Map <leader>ff to display all lines with keyword under cursor
+    " and ask which one to jump to
+    nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+" }
+
+" Plugins {
+    " NerdTree {
+        if isdirectory(expand("~/.vim/bundle/nerdtree"))
+            map <C-e> <plug>NERDTreeTabsToggle<CR>
+            map <leader>e :NERDTreeFind<CR>
+            nmap <leader>nt :NERDTreeFind<CR>
+
+            let NERDTreeShowBookmarks=1
+            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+            let NERDTreeChDirMode=0
+            let NERDTreeQuitOnOpen=1
+            let NERDTreeMouseMode=2
+            let NERDTreeShowHidden=1
+            let NERDTreeKeepTreeInNewTab=1
+            let g:nerdtree_tabs_open_on_gui_startup=0
+        endif
+    " }
+	
+	" ctrlp {
+        if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
+            let g:ctrlp_working_path_mode = 'ra'
+			let g:ctrlp_map = '<c-p>'
+			let g:ctrlp_cmd = 'CtrlP'
+            let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+            " On Windows use "dir" as fallback command.
+			let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+            let g:ctrlp_user_command = {
+                \ 'types': {
+                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+                \ 'fallback': s:ctrlp_fallback
+            \ }
+
+            if isdirectory(expand("~/.vim/bundle/ctrlp-funky/"))
+                " CtrlP extensions
+                let g:ctrlp_extensions = ['funky']
+
+                "funky
+                nnoremap <Leader>fu :CtrlPFunky<Cr>
+            endif
+        endif
+    "}
+	" }
 " }
 
 " Functions {
@@ -204,4 +275,6 @@ set nocompatible			  " be iMproved, required
 
 " Lists all the sourced script names, in the order they were sourced
 " :scriptnames
+
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim
 " }
