@@ -101,7 +101,9 @@ set nocompatible			  " be iMproved, required
         " Broken down into easily includable segments
         set statusline=%<%f\                     " Filename
         set statusline+=%w%h%m%r                 " Options
-		"set statusline+=%{fugitive#statusline()} " Git Hotness
+        if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+			set statusline+=%{fugitive#statusline()} " Git Hotness
+		endif
         set statusline+=\ [%{&ff}/%Y]            " Filetype
         set statusline+=\ [%{getcwd()}]          " Current dir
         set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
@@ -187,6 +189,11 @@ set nocompatible			  " be iMproved, required
     " Map <leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
     nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+	" Buffer mappings
+	" F12 is next buffer. Shift-F12 is prev buffer.
+	nnoremap <silent> <F12> :bn<CR>
+	nnoremap <silent> <S-F12> :bp<CR>
 " }
 
 " Plugins {
@@ -235,7 +242,23 @@ set nocompatible			  " be iMproved, required
             endif
         endif
     "}
-	" }
+
+    " Fugitive {
+        if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+            nnoremap <silent> <leader>gs :Gstatus<CR>
+            nnoremap <silent> <leader>gd :Gdiff<CR>
+            nnoremap <silent> <leader>gc :Gcommit<CR>
+            nnoremap <silent> <leader>gb :Gblame<CR>
+            nnoremap <silent> <leader>gl :Glog<CR>
+            nnoremap <silent> <leader>gp :Git push<CR>
+            nnoremap <silent> <leader>gr :Gread<CR>
+            nnoremap <silent> <leader>gw :Gwrite<CR>
+            nnoremap <silent> <leader>ge :Gedit<CR>
+            " Mnemonic _i_nteractive
+            nnoremap <silent> <leader>gi :Git add -p %<CR>
+            nnoremap <silent> <leader>gg :SignifyToggle<CR>
+        endif
+    " }
 " }
 
 " Functions {
