@@ -33,7 +33,8 @@ set nocompatible			  " be iMproved, required
 	endif
 
 	" Always switch to the current file directory
-	autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+	" Note: Commented out because it doesn't work with some plugins (ex. fugitive)
+	"autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
 	set shortmess+=filmnrxoOtT			" Abbrev. of messages (avoids 'hit enter')
 	set history=1000					" Store a ton of history (default is 20)
@@ -257,6 +258,9 @@ set nocompatible			  " be iMproved, required
             " Mnemonic _i_nteractive
             nnoremap <silent> <leader>gi :Git add -p %<CR>
             nnoremap <silent> <leader>gg :SignifyToggle<CR>
+
+			" Auto-clean fugitive buffers
+			autocmd BufReadPost fugitive://* set bufhidden=delete
         endif
     " }
 " }
