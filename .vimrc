@@ -83,7 +83,12 @@ set nocompatible			  " be iMproved, required
 " }
 
 " VIM UI {
-	"colorscheme koehler
+	if isdirectory(expand("~/.vim/bundle/vim-colors-solarized/"))
+		set background=dark
+		colorscheme solarized
+	else
+		colorscheme koehler
+	endif
     set showmode                    " Display the current mode
     set cursorline                  " Highlight current line
 
