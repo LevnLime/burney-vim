@@ -58,4 +58,5 @@ IF NOT EXIST "%HOME%/.vim/bundle/Vundle.vim" (
 )
 
 REM Install/update all bundles
+REM The -u flag tells VIM to source this file (like a _vimrc file)
 call vim -u "%APP_DIR%/.vimrc.bundles" +PluginInstall! +PluginClean +qall
