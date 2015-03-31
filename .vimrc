@@ -142,7 +142,8 @@ set nocompatible			  " be iMproved, required
 " }
 
 " Formatting {
-    set nowrap                      " Do not wrap long lines
+    "set nowrap                      " Do not wrap long lines
+	set wrap
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
@@ -279,6 +280,15 @@ set nocompatible			  " be iMproved, required
 			let g:syntastic_auto_loc_list = 1
 			let g:syntastic_check_on_open = 1
 			let g:syntastic_check_on_wq = 0
+		endif
+	" }
+
+	" Ack.vim {
+        if isdirectory(expand("~/.vim/bundle/ack.vim/"))
+			" Use Ag (the "Silver Searcher") if it is available
+			if executable('ag')
+				let g:ackprg = 'ag --nogroup --nocolor --column'
+			endif
 		endif
 	" }
 " }
