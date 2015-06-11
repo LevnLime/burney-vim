@@ -85,6 +85,7 @@ set nocompatible			  " be iMproved, required
 " VIM UI {
 	if isdirectory(expand("~/.vim/bundle/vim-colors-solarized/"))
 		set background=dark
+		let g:solarized_italic=0    " turn off italics
 		colorscheme solarized
 	else
 		colorscheme koehler
