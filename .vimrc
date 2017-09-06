@@ -24,13 +24,13 @@ set nocompatible			  " be iMproved, required
 	scriptencoding utf-8
 	set encoding=utf-8
 
-	if has('clipboard')
-		if has('unnamedplus')  " When possible use + register for copy-paste
-			set clipboard=unnamed,unnamedplus
-		else		 " On mac and Windows, use * register for copy-paste
-			set clipboard=unnamed
-		endif
-	endif
+"	if has('clipboard')
+"		if has('unnamedplus')  " When possible use + register for copy-paste
+"			set clipboard=unnamed,unnamedplus
+"		else		 " On mac and Windows, use * register for copy-paste
+"			set clipboard=unnamed
+"		endif
+"	endif
 
 	" Always switch to the current file directory
 	" Note: Commented out because it doesn't work with some plugins (ex. fugitive)
