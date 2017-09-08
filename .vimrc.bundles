@@ -22,6 +22,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'jason0x43/vim-js-indent'
 Plugin 'mileszs/ack.vim'
+Plugin 'PProvost/vim-ps1'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
